@@ -1,141 +1,60 @@
-# Bangladesh Map Coverage
+# Is Tomorrow Lockdown?
 
-A full stack JS project based on the MERN stack of Bangladesh Map that can be used easily within organization and teams to keep track of employees/users and how much of the country they've travelled.
+A NextJS PWA project that fetches information from a Google Sheet and then dynamically updates the latest lockdown restrictions in Bangladesh for easy view of the general public.
 
 ## Live Website
 
 ```http
-  http://fierce-refuge-94530.herokuapp.com/
-```
-
-#### Testing Credentials
-
-Username
-```
-  Hagrid
-```
-Password
-```
-  333
+  https://istomorrowlockdown.com/
 ```
 
 ## Demo
 
-#### Desktop View
+#### In English & Bangla with Lockdown Restrictions
 
-![Website Desktop Image](https://i.imgur.com/27bPILg.png)
+![Website Image - Restrictions](https://i.imgur.com/eUeQTcX.png)
 
-#### Mobile View
+#### In English & Bangla without Lockdown Restrictions
 
-![Website Mobile Image](https://i.imgur.com/I9B7YJ4.png)
+![Website Image - Without Restrictions](https://i.imgur.com/0CcmFpu.png)
 
-#### Video of Features
+#### Google Sheets Backend
 
-[![BD Map Coverage](https://i.imgur.com/k8EMukl.png)](https://www.youtube.com/watch?v=AA_GDKjWJAs "BD Map Coverage")
+![Google Sheets](https://i.imgur.com/Qvg8oTf.png)
 
 ## Tech Stack
 
-**Client:** React, Material UI
+**Client:** NextJS, Chakra UI
 
-**Server:** Node, Express
+**Analytics:** Google Analytics
 
-**Database:** MongoDB
-
-**Image Hosting:** Amazon S3
+**Deployment:** Vercel
 
 ## Features
 
--   All districts of Bangladesh in SVG path
--   Employees can be selected from easy select menu
--   Images uploaded to Amazon S3 bucket
--   Instant coloring of map based on number of times district visited
--   Counters and visit stats are updated realtime
--   Desktop and Mobile View ready
+-   Dark theme and Language Switcher
+-   Progressive Web App (PWA) enabled
+-   Dynamically generates the table fetching from Google Sheets API at server side
+-   Easy CMS solution of Google Sheets
+-   Mobile Responsive
 
 ## Installation
 
--   For development, make sure to set up .env file with the appropriate information. The keys have been provided and the values need to be populated there. In most production solutions, the environment variables should be easy to provide globally.
--   It might be wise to set up 2 databases, one for development and one for production. The server side has been programmed to check the environment variable, and based on that it will either choose the production DB or the development DB.
--   The app currently is based on MongoDB. To start a boilerplate version of the app, a mongoDB Atlas account will be needed and the mongoose.js file can be used to set up the districts in the DB as well as the Employees in the DB. Further details are provided in the mongoose.js file.
--   Change the title of the website at the root level index.html file
--   The website uses JSON Web Token as a method of logging in user and maintaining tokens. Set up a secret key in the .env file which can be equal to any string you want.
--   Set up AWS S3 bucket to enable remote image uploading and add the access information in the .env file. This [video](https://www.youtube.com/watch?v=yGYeYJpRWPM) was of great help.
--   Change the global colors in `client/assets/custom.scss` to style the map accordingly. A main color is provided for the overall website as well as 3 color shades for the map ranging from 0 visits to 2 and more visits each district.
--   Change the global palette colors in `client/components/theme.js` to style the website accordingly. This can be done to ensure your organization or team's preferred color is used everywhere in the website.
--   Change the global long and short title of website in `client/util/common.js` to ensure website has the appropriate navbar title on desktop and mobile view.
--   Change the logo, favicon and loading gif in `client/assets` to ensure website has the common images that you want.
--   You can check out the `client/services` directory to see how the API URLs are set up. Ideally, the routes should work out of the box.
--   The project opts for useContext hook of React instead of implementing a solution with Redux. Looking into the MapContext file can provide a view of the globally accessible state and its values.
+-   Create a Google API Service Account to set up access to the backend data fetching. A helpful guide has been provided in the acknowledgement section.
+-   Set up the sheet similar to the provided `Is Tomorrow Lockdown - Backend` excel file in `libs` so that the project can run smoothly.
+-   Provide the relevant environment variables in either your production solution's environment or in a .env file.
+-   For Google Analytics support, receive your Google Analytics Tag and replace `YOUR-G-TAG-HERE` at `pages/_app.js` and `pages/index.js`.
+-   Modify and experiment with the code to get your desired output.
 
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`AWS_ACCESS_KEY_ID` - Your AWS access key
+`GOOGLE_SHEETS_CLIENT_EMAIL` - Your Service Account Email email address generated by Google APIs
 
-`AWS_SECRET_ACCESS_KEY` - - Your AWS secret access key
+`GOOGLE_SHEETS_PRIVATE_KEY` - Private Key for your Google Sheets Account
 
-`MONGODB_URI` - Your URL to the production MongoDB
-
-`MONGODB_URI_TEST` - Your URL to the development MongoDB
-
-`SECRET` - Your string for JWT token.
-
-## API Reference
-
-#### Get all district paths and visit count
-
-```http
-  GET /api/districts
-```
-
-#### Get Image Upload URL
-
-```http
-  GET /api/imageupload
-```
-
-| Header  | Type     | Description                              |
-| :------ | :------- | :--------------------------------------- |
-| `token` | `string` | **Required**. login token to verify user |
-
-#### Get all Users
-
-```http
-  GET /api/users
-```
-
-#### Get all completed visits
-
-```http
-  GET /api/visit
-```
-
-| Header  | Type     | Description                              |
-| :------ | :------- | :--------------------------------------- |
-| `token` | `string` | **Required**. login token to verify user |
-
-#### District update
-
-```http
-  PUT /api/districts/:id
-```
-
-| Parameter | Type     | Description                                           |
-| :-------- | :------- | :---------------------------------------------------- |
-| `id`      | `string` | **Required**. id of district that needs to be updated |
-
-#### User Login
-
-```http
-  POST /api/login
-```
-
-#### Add Visit
-
-```http
-  POST /api/visit
-```
+`SPREADSHEET_ID` - Unique ID of your spreadsheet found in the URL of your Google Sheet
 
 ## Deployment
 
@@ -148,8 +67,8 @@ To deploy this project run
 
 ## Acknowledgements
 
--   [Full-Stack Open](https://fullstackopen.com/en/) from the University of Helsinki provided a lot of the foundation this is based on.
--   The project was based on this [boilerplate](https://github.com/fullstack-hy2020/create-app) code and structure.
+-   [Connecting NextJS to Google Sheets](https://dev.to/frasnym/connecting-your-nextjs-mini-project-with-google-spreadsheets-as-database-1o2d) provided support in enabling Google Sheets access.
+-   The project was able to switch between languages with support from the article -  [Language Support in Next JS](https://daily.dev/blog/internationalization-i18n-in-nextjs).
 
 ## License
 
